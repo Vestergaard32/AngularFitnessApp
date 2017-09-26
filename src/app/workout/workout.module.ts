@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { WorkoutComponent } from './workout/workout.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: []
+  declarations: [WorkoutComponent],
+  exports: [
+    WorkoutComponent
+  ]
 })
 export class WorkoutModule { }

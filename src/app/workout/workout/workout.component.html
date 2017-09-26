@@ -1,0 +1,21 @@
+<table *ngFor="let workout of (currentUser ? currentUser.workoutprograms : [])" class="table">
+  <thead>
+    <th colspan="4">{{workout.workoutName}}
+      <button class="btn btn-danger" (click)="onDeleteWorkout(workout._id)">Delete Workout</button>
+    </th>
+  </thead>
+  <thead *ngIf="workout.exercises.length > 0">
+    <th>Name</th>
+    <th>Description</th>
+    <th>Sets</th>
+    <th>Reps</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let exercise of (workout.exercises ? workout.exercises : [])">
+      <td>{{exercise.exerciseName}}</td>
+      <td>{{exercise.description}}</td>
+      <td>{{exercise.sets}}</td>
+      <td>{{exercise.reps}}</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,4 +1,7 @@
+import { WorkoutProgram } from './workout-program'
+
 export class User {
-    _id: string;
-    username: string;
+    public _id: string;
+    public username: string;
+    public workoutprograms: WorkoutProgram[];
 }

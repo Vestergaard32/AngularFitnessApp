@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { FitnessApiService } from '../../fitness-api.service'
@@ -8,14 +8,13 @@ import { FitnessApiService } from '../../fitness-api.service'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   username = new FormControl();
 
   constructor(private apiService : FitnessApiService) 
   {
-    console.log("POOP SHIZZLE");
-    console.log(apiService);
+    console.log("This comes from LoginComponent!");
   }
 
   ngOnInit() {
@@ -23,12 +22,11 @@ export class LoginComponent implements OnInit {
 
   loginClick()
   {
-    console.log("The pickle rick is: " + this.username.value);
-    let pooper = this.apiService.Login(this.username.value)
-      .then((theUser) => 
-      {
-        console.log(theUser);
-      });
+    this.apiService.Login(this.username.value);
   }
 
+  ngOnDestroy()
+  {
+    this.apiService.loggedInUser.unsubscribe();
+  }
 }
