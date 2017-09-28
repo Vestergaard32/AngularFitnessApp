@@ -103,10 +103,10 @@ export class FitnessApiService {
 
   CreateWorkoutActivity(user : User, workoutId: string) : Promise<User>
   {
-    let userUrl = this.baseUrl + 'api/users/' + user._id + "/workouts/" + workoutId;
+    let userUrl = this.baseUrl + 'api/users/' + user._id + "/workouts/" + workoutId + "/workoutActivities";
     return this.http.post(userUrl, {})
       .toPromise()
-      .then((response) => this.loggedInUser.next(response.json().User as User))
+      .then((response) => this.loggedInUser.next(response.json().updatedUser as User))
       .catch(this.handleError);
   }
 

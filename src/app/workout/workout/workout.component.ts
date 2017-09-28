@@ -29,4 +29,14 @@ export class WorkoutComponent implements OnInit {
   {
     this.apiService.DeleteWorkout(this.currentUser, workoutId);
   }
+
+  onDeleteExercise(workoutId : string, exerciseId : string)
+  {
+    this.apiService.DeleteExercise(this.currentUser, workoutId, exerciseId);
+  }
+
+  onLogWorkoutActivity(workoutId : string)
+  {
+    this.apiService.CreateWorkoutActivity(this.currentUser, workoutId);
+  }
 }
