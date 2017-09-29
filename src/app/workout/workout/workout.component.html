@@ -2,7 +2,7 @@
 </app-workout-entry>
 
 <div *ngIf="currentUser != null">
-    <h2>Create a new motherfucking workout:  </h2>
+    <h2>Create new workout</h2>
     <input class="form-control" [formControl]="workoutName"/>
     <button class="btn btn-success" (click)="onCreateWorkout()">Create Workout</button>
 </div>

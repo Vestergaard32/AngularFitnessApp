@@ -1,4 +1,4 @@
 export class ActivityLog {
-    public timestamp: string;
+    public timestamp: Date;
     public description: string;
 }

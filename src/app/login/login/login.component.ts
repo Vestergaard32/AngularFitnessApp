@@ -11,6 +11,7 @@ import { FitnessApiService } from '../../fitness-api.service'
 export class LoginComponent implements OnInit, OnDestroy {
 
   username = new FormControl();
+  newusername = new FormControl();
 
   constructor(private apiService : FitnessApiService) 
   {
@@ -23,6 +24,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginClick()
   {
     this.apiService.Login(this.username.value);
+  }
+
+  onCreateUserClick()
+  {
+    this.apiService.CreateUser(this.newusername.value);
   }
 
   ngOnDestroy()

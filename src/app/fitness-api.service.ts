@@ -25,22 +25,20 @@ export class FitnessApiService {
       .toPromise()
       .then((response) =>
         {
-          console.log("Pooper");
-          console.log(response.json());
           this.loggedInUser.next(response.json().User as User);
-        }
-      )
+        })
       .catch(this.handleError);
   }
 
-  CreateUser(user: User) : Promise<User>
+  CreateUser(username: string) : Promise<User>
   {
     let userUrl = this.baseUrl + 'api/users';
-    const body = {username: user.username};
-    return this.http.post(userUrl, body)
+    const body = {"username" : username};
+    return this.http.post(userUrl, body)  
       .toPromise()
       .then((response) =>
         {
+          console.log(response.json().User as User);
           this.loggedInUser.next(response.json().User as User);
         })
       .catch(this.handleError)
