@@ -80,7 +80,7 @@ export class FitnessApiService {
   {
     let userUrl = this.baseUrl + 'api/users/' + user._id + "/workouts/" + workoutId + "/exercises";
     const body = {
-      exerciseName: exercise.exerciseName,
+      exercisename: exercise.exerciseName,
       description: exercise.description,
       sets: exercise.sets,
       reps: exercise.reps

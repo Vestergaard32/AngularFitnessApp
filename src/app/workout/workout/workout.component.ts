@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 import { FitnessApiService } from '../../fitness-api.service'
 import { User } from '../../user'
@@ -11,6 +12,7 @@ import { WorkoutProgram } from '../../workout-program'
 })
 export class WorkoutComponent implements OnInit {
   public currentUser : User;
+  public workoutName = new FormControl();
 
   constructor(private apiService : FitnessApiService) 
   {
@@ -25,18 +27,9 @@ export class WorkoutComponent implements OnInit {
     this.currentUser = user;
   }
 
-  onDeleteWorkout(workoutId : string)
-  {
-    this.apiService.DeleteWorkout(this.currentUser, workoutId);
-  }
-
-  onDeleteExercise(workoutId : string, exerciseId : string)
-  {
-    this.apiService.DeleteExercise(this.currentUser, workoutId, exerciseId);
-  }
-
-  onLogWorkoutActivity(workoutId : string)
-  {
-    this.apiService.CreateWorkoutActivity(this.currentUser, workoutId);
+  onCreateWorkout(){
+    if(this.workoutName != null){
+      this.apiService.CreateWorkout(this.currentUser, this.workoutName.value);      
+    }
   }
 }

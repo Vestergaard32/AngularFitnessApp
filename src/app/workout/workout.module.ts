@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { WorkoutComponent } from './workout/workout.component';
+import { WorkoutEntryComponent } from './workout-entry/workout-entry.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
-  declarations: [WorkoutComponent],
+  declarations: [WorkoutComponent, WorkoutEntryComponent],
   exports: [
-    WorkoutComponent
+    WorkoutComponent,
+    WorkoutEntryComponent
   ]
 })
 export class WorkoutModule { }

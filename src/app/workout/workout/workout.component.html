@@ -1,29 +1,8 @@
-<table *ngFor="let workout of (currentUser ? currentUser.workoutprograms : [])" class="table">
-  <thead>
-    <th colspan="4">{{workout.workoutName}}
-      <small><span *ngIf="workout.activities.length > 0">Last Activity: {{workout.activities[workout.activities.length - 1].timestamp}}</span></small>
-    </th>
-    <th>
-        <button class="btn btn-success" (click)="onLogWorkoutActivity(workout._id)">Log Workout Activity</button>
-        <button class="btn btn-danger" (click)="onDeleteWorkout(workout._id)">Delete Workout</button>
-    </th>
-  </thead>
-  <thead *ngIf="workout.exercises.length > 0">
-    <th>Name</th>
-    <th>Description</th>
-    <th>Sets</th>
-    <th>Reps</th>
-    <th>Manage</th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let exercise of (workout.exercises ? workout.exercises : [])">
-      <td>{{exercise.exerciseName}}</td>
-      <td>{{exercise.description}}</td>
-      <td>{{exercise.sets}}</td>
-      <td>{{exercise.reps}}</td>
-      <td>
-        <button class="btn btn-danger" (click)="onDeleteExercise(workout._id, exercise._id)">Delete Exercise</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<app-workout-entry *ngFor="let workout of (currentUser ? currentUser.workoutprograms : [])" class="table" [workout] = "workout">
+</app-workout-entry>
+
+<div *ngIf="currentUser != null">
+    <h2>Create a new motherfucking workout:  </h2>
+    <input class="form-control" [formControl]="workoutName"/>
+    <button class="btn btn-success" (click)="onCreateWorkout()">Create Workout</button>
+</div>
