@@ -49,7 +49,7 @@ export class FitnessApiService {
       .catch(this.handleError);
   }
 
-  CreateWorkout(user:User, workoutName:string) : Promise<User>
+  CreateWorkout(user: User, workoutName:string) : Promise<User>
   {
     let userUrl = this.baseUrl + 'api/users/'+ user._id + '/workouts';
     const body = {workoutName : workoutName}
@@ -57,7 +57,11 @@ export class FitnessApiService {
       .toPromise()
       .then((response) => 
         {
-          this.loggedInUser.next(response["User"] as User);
+          var user = new User();
+          user._id = response["userid"];
+          user.username = response["username"];
+          user.workoutprograms = response["workoutprograms"];
+          this.loggedInUser.next(user);
         })
       .catch(this.handleError); 
   }
@@ -67,7 +71,13 @@ export class FitnessApiService {
     let userUrl = this.baseUrl + 'api/users/' + user._id + '/workouts/' + workoutId;
     return this.http.delete(userUrl)
       .toPromise()
-      .then((response) => this.loggedInUser.next(response["User"] as User))
+      .then((response) => {
+        var user = new User();
+        user._id = response["userid"];
+        user.username = response["username"];
+        user.workoutprograms = response["workoutprograms"];
+        this.loggedInUser.next(user);
+      })
       .catch(this.handleError);
   }
 
@@ -83,7 +93,13 @@ export class FitnessApiService {
 
     return this.http.post(userUrl, body)
       .toPromise()
-      .then((response) => this.loggedInUser.next(response["User"] as User))
+      .then((response) => {
+        var user = new User();
+        user._id = response["userid"];
+        user.username = response["username"];
+        user.workoutprograms = response["workoutprograms"];
+        this.loggedInUser.next(user);
+      })
       .catch(this.handleError);
   }
 
@@ -92,7 +108,13 @@ export class FitnessApiService {
     let userUrl = this.baseUrl + 'api/users/' + user._id + "/workouts/" + workoutId + "/exercises/" + exerciseId;
     return this.http.delete(userUrl)
       .toPromise()
-      .then((response) => this.loggedInUser.next(response["User"] as User))
+      .then((response) => {
+        var user = new User();
+        user._id = response["userid"];
+        user.username = response["username"];
+        user.workoutprograms = response["workoutprograms"];
+        this.loggedInUser.next(user);
+      })
       .catch(this.handleError);
   }
 
@@ -101,7 +123,13 @@ export class FitnessApiService {
     let userUrl = this.baseUrl + 'api/users/' + user._id + "/workouts/" + workoutId + "/workoutActivities";
     return this.http.post(userUrl, {})
       .toPromise()
-      .then((response) => this.loggedInUser.next(response["updatedUser"] as User))
+      .then((response) => {
+        var user = new User();
+        user._id = response["userid"];
+        user.username = response["username"];
+        user.workoutprograms = response["workoutprograms"];
+        this.loggedInUser.next(user);
+      })
       .catch(this.handleError);
   }
 

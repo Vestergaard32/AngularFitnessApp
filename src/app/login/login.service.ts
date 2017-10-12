@@ -23,8 +23,6 @@ export class LoginService {
   {
     if (window.localStorage[this.fitnessTokenKey]) 
     {
-      console.log("FROM TOKEN STUFF");
-      console.log(window.localStorage[this.fitnessTokenKey]);
       return window.localStorage[this.fitnessTokenKey];
     } else
     {
@@ -67,7 +65,6 @@ export class LoginService {
     });
 
     theObservable.subscribe(data => {
-      console.log(data["token"]);
       this.saveToken(data["token"]);
     },
     (err: HttpErrorResponse) => {
