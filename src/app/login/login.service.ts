@@ -39,7 +39,6 @@ export class LoginService {
     });
 
     theObservable.subscribe(data => {
-      console.log(data["token"]);
       this.saveToken(data["token"]);
     },
     (err: HttpErrorResponse) => {

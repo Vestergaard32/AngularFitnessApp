@@ -36,7 +36,6 @@ export class FitnessApiService {
       var user = new User();
       user._id = data["userid"];
       user.username = data["username"];
-      user.workoutprograms = data["workoutprograms"];
       this.loggedInUser.next(user);
     });
   }
