@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth-interceptor'
 import { LoginModule } from './login/login.module';
 import { WorkoutModule } from './workout/workout.module';
 import { HttpModule } from '@angular/http';
@@ -7,18 +9,25 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 
 import { FitnessApiService } from './fitness-api.service'
+import { LoginService } from './login/login.service'
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
-    HttpModule,
     LoginModule,
     WorkoutModule
   ],
-  providers: [FitnessApiService],
+  providers: [{
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    FitnessApiService, 
+    LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

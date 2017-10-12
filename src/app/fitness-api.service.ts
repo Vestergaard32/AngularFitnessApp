@@ -5,43 +5,40 @@ import 'rxjs/add/operator/toPromise';
 
 import { User } from './user'
 import { Exercise } from './exercise'
+import { LoginService } from './login/login.service'
 
 @Injectable()
 export class FitnessApiService {
   public loggedInUser : BehaviorSubject<User>;
 
-  private baseUrl = 'https://hidden-lake-64342.herokuapp.com/';
+  //private baseUrl = 'https://hidden-lake-64342.herokuapp.com/';
+  private baseUrl = 'http://localhost:3000/'
 
-  constructor(private http: Http)
+  constructor(private http: Http, private loginService : LoginService)
   {
     this.loggedInUser = new BehaviorSubject<User>(null);
   }
 
-  Login(username: string): Promise<User>
+  Login(username: string, password: string)
   {
-    let userUrl = this.baseUrl + 'api/users/' + username;
-
-    return this.http.get(userUrl)
-      .toPromise()
-      .then((response) =>
-        {
-          this.loggedInUser.next(response.json().User as User);
-        })
-      .catch(this.handleError);
+    this.loginService.login(username, password).subscribe(data => {
+      var user = new User();
+      user._id = data.json().userid;
+      user.username = data.json().username;
+      user.workoutprograms = data.json().workoutprograms;
+      this.loggedInUser.next(user);
+    });
   }
 
-  CreateUser(username: string) : Promise<User>
+  CreateUser(username: string, password: string)
   {
-    let userUrl = this.baseUrl + 'api/users';
-    const body = {"username" : username};
-    return this.http.post(userUrl, body)  
-      .toPromise()
-      .then((response) =>
-        {
-          console.log(response.json().User as User);
-          this.loggedInUser.next(response.json().User as User);
-        })
-      .catch(this.handleError)
+    this.loginService.register(username, password).subscribe(data => {
+      var user = new User();
+      user._id = data.json().userid;
+      user.username = data.json().username;
+      user.workoutprograms = data.json().workoutprograms;
+      this.loggedInUser.next(user);
+    });
   }
 
   DeleteUser(user: User) : Promise<User>

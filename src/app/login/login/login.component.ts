@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { FitnessApiService } from '../../fitness-api.service'
+import { LoginService } from '../login.service'
 
 @Component({
   selector: 'app-login',
@@ -11,9 +12,13 @@ import { FitnessApiService } from '../../fitness-api.service'
 export class LoginComponent implements OnInit, OnDestroy {
 
   username = new FormControl();
-  newusername = new FormControl();
+  password = new FormControl();
 
-  constructor(private apiService : FitnessApiService) 
+  newusername = new FormControl();
+  newpassword = new FormControl();
+
+  constructor(private apiService : FitnessApiService,
+              private loginService : LoginService) 
   {
     console.log("This comes from LoginComponent!");
   }
@@ -23,12 +28,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginClick()
   {
-    this.apiService.Login(this.username.value);
+    this.apiService.Login(this.username.value, this.password.value);
   }
 
   onCreateUserClick()
   {
-    this.apiService.CreateUser(this.newusername.value);
+    this.apiService.CreateUser(this.newusername.value, this.newpassword.value);
   }
 
   ngOnDestroy()
