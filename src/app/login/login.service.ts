@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Response, Headers, Http } from '@angular/http';
-
 import { User } from '../user'
 
 @Injectable()
@@ -10,7 +8,7 @@ export class LoginService {
   fitnessTokenKey: string;
   baseUrl: string;
 
-  constructor(private http: Http) 
+  constructor(private http: HttpClient) 
   {
     this.fitnessTokenKey = "fitness-token";
     this.baseUrl = "http://localhost:3000/api/"
@@ -34,7 +32,7 @@ export class LoginService {
     }
   }
 
-  public register(username: string, password: string) : Observable<Response>
+  public register(username: string, password: string) : Observable<Object>
   {
     const url = this.baseUrl + "users";
     var theObservable = this.http.post(url, {
@@ -43,8 +41,8 @@ export class LoginService {
     });
 
     theObservable.subscribe(data => {
-      console.log(data.json().token);
-      this.saveToken(data.json().token);
+      console.log(data["token"]);
+      this.saveToken(data["token"]);
     },
     (err: HttpErrorResponse) => {
       if (err.error instanceof Error) {
@@ -59,7 +57,7 @@ export class LoginService {
     return theObservable;
   }
 
-  public login(username: string, password: string) : Observable<Response>
+  public login(username: string, password: string) : Observable<Object>
   {
     const url = this.baseUrl + "users/login";
 
@@ -69,8 +67,8 @@ export class LoginService {
     });
 
     theObservable.subscribe(data => {
-      console.log(data.json().token);
-      this.saveToken(data.json().token);
+      console.log(data["token"]);
+      this.saveToken(data["token"]);
     },
     (err: HttpErrorResponse) => {
       if (err.error instanceof Error) {
@@ -95,13 +93,4 @@ export class LoginService {
       return false;
     }
   }
-
-  /*
-  public currentUser() : User {
-    if (this.isLoggedIn()) {
-      const token = this.getToken();
-      const payload = JSON.parse(window.atob(token.split('.')[1]));
-
-    }
-  }*/
 }

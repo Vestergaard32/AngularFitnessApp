@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/toPromise';
 
@@ -14,7 +14,7 @@ export class FitnessApiService {
   //private baseUrl = 'https://hidden-lake-64342.herokuapp.com/';
   private baseUrl = 'http://localhost:3000/'
 
-  constructor(private http: Http, private loginService : LoginService)
+  constructor(private http: HttpClient, private loginService : LoginService)
   {
     this.loggedInUser = new BehaviorSubject<User>(null);
   }
@@ -23,9 +23,9 @@ export class FitnessApiService {
   {
     this.loginService.login(username, password).subscribe(data => {
       var user = new User();
-      user._id = data.json().userid;
-      user.username = data.json().username;
-      user.workoutprograms = data.json().workoutprograms;
+      user._id = data["userid"];
+      user.username = data["username"];
+      user.workoutprograms = data["workoutprograms"];
       this.loggedInUser.next(user);
     });
   }
@@ -34,9 +34,9 @@ export class FitnessApiService {
   {
     this.loginService.register(username, password).subscribe(data => {
       var user = new User();
-      user._id = data.json().userid;
-      user.username = data.json().username;
-      user.workoutprograms = data.json().workoutprograms;
+      user._id = data["userid"];
+      user.username = data["username"];
+      user.workoutprograms = data["workoutprograms"];
       this.loggedInUser.next(user);
     });
   }
@@ -57,7 +57,7 @@ export class FitnessApiService {
       .toPromise()
       .then((response) => 
         {
-          this.loggedInUser.next(response.json().User as User);
+          this.loggedInUser.next(response["User"] as User);
         })
       .catch(this.handleError); 
   }
@@ -67,7 +67,7 @@ export class FitnessApiService {
     let userUrl = this.baseUrl + 'api/users/' + user._id + '/workouts/' + workoutId;
     return this.http.delete(userUrl)
       .toPromise()
-      .then((response) => this.loggedInUser.next(response.json().User as User))
+      .then((response) => this.loggedInUser.next(response["User"] as User))
       .catch(this.handleError);
   }
 
@@ -83,7 +83,7 @@ export class FitnessApiService {
 
     return this.http.post(userUrl, body)
       .toPromise()
-      .then((response) => this.loggedInUser.next(response.json().User as User))
+      .then((response) => this.loggedInUser.next(response["User"] as User))
       .catch(this.handleError);
   }
 
@@ -92,7 +92,7 @@ export class FitnessApiService {
     let userUrl = this.baseUrl + 'api/users/' + user._id + "/workouts/" + workoutId + "/exercises/" + exerciseId;
     return this.http.delete(userUrl)
       .toPromise()
-      .then((response) => this.loggedInUser.next(response.json().User as User))
+      .then((response) => this.loggedInUser.next(response["User"] as User))
       .catch(this.handleError);
   }
 
@@ -101,7 +101,7 @@ export class FitnessApiService {
     let userUrl = this.baseUrl + 'api/users/' + user._id + "/workouts/" + workoutId + "/workoutActivities";
     return this.http.post(userUrl, {})
       .toPromise()
-      .then((response) => this.loggedInUser.next(response.json().updatedUser as User))
+      .then((response) => this.loggedInUser.next(response["updatedUser"] as User))
       .catch(this.handleError);
   }
 

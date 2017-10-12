@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth-interceptor'
 import { LoginModule } from './login/login.module';
 import { WorkoutModule } from './workout/workout.module';
-import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
@@ -21,13 +20,14 @@ import { LoginService } from './login/login.service'
     LoginModule,
     WorkoutModule
   ],
-  providers: [{
+  providers: [
+    FitnessApiService, 
+    LoginService,
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    },
-    FitnessApiService, 
-    LoginService],
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
