@@ -5,10 +5,10 @@
         <small><span *ngIf="workout.activities.length > 0">Last Activity: {{workout.activities[workout.activities.length - 1].timestamp}}</span></small>
       </th>
       <th>
-          <button class="btn btn-success" (click)="onLogWorkoutActivity(workout._id)">Log Activity</button>        
+          <button class="btn btn-success" [disabled]="!isLoggedIn()" (click)="onLogWorkoutActivity(workout._id)">Log Activity</button>        
       </th>
       <th>
-          <button class="btn btn-danger" (click)="onDeleteWorkout(workout._id)">Delete</button>
+          <button class="btn btn-danger" [disabled]="!isLoggedIn()" (click)="onDeleteWorkout(workout._id)">Delete</button>
       </th>
     </thead>
     <thead>
@@ -25,7 +25,7 @@
         <td>{{exercise.sets}}</td>
         <td>{{exercise.reps}}</td>
         <td>
-          <button class="btn btn-danger" (click)="onDeleteExercise(workout._id, exercise._id)">Delete Exercise</button>
+          <button class="btn btn-danger" [disabled]="!isLoggedIn()" (click)="onDeleteExercise(workout._id, exercise._id)">Delete Exercise</button>
         </td>
       </tr>
       <tr>
@@ -34,7 +34,7 @@
         <td><input class="form-control" [formControl]="exerciseSets" /></td>
         <td><input class="form-control" [formControl]="exerciseReps" /></td>
         <td>
-          <button class="btn btn-success" (click)="onCreateExercise(workout._id)">Create Exercise</button>
+          <button class="btn btn-success" [disabled]="!isLoggedIn()" (click)="onCreateExercise(workout._id)">Create Exercise</button>
         </td>
       </tr>
     </tbody>

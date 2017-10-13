@@ -31,9 +31,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.apiService.Login(this.username.value, this.password.value);
   }
 
+  logoutClick()
+  {
+    this.apiService.Logout();
+  }
+
   onCreateUserClick()
   {
     this.apiService.CreateUser(this.newusername.value, this.newpassword.value);
+  }
+
+  checkWorkouts()
+  {
+    
   }
 
   ngOnDestroy()

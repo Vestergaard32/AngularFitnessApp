@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { User } from './user'
 import { Exercise } from './exercise'
+import { WorkoutProgram } from './workout-program'
 import { LoginService } from './login/login.service'
 
 @Injectable()
@@ -130,6 +131,20 @@ export class FitnessApiService {
         this.loggedInUser.next(user);
       })
       .catch(this.handleError);
+  }
+
+  GetAllworkouts() : Promise<Object>
+  {
+    let url = this.baseUrl + "api/workouts";
+
+    return this.http.get(url, {})
+      .toPromise();
+  }
+
+  Logout()
+  {
+    this.loggedInUser.next(null);
+    this.loginService.logout();
   }
 
   private handleError(error: any): Promise<any> {

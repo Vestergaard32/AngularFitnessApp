@@ -29,7 +29,7 @@ export class WorkoutComponent implements OnInit {
 
   onCreateWorkout(){
     if(this.workoutName != null){
-      this.apiService.CreateWorkout(this.currentUser, this.workoutName.value);      
+      this.apiService.CreateWorkout(this.currentUser, this.workoutName.value);
     }
   }
 }

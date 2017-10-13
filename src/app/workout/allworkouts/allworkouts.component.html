@@ -1,0 +1,32 @@
+<div *ngIf="shouldShwo">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-5 box-shadow">
+          <h4 class="text-center">Check Out All Workout Programs</h4>
+          <button class="btn btn-success" (click)="checkWorkouts()">Go!</button>
+        </div>
+      </div>
+    
+    <div *ngFor="let workout of (workouts ? workouts : [])" class="row">
+        <table class="table" style="margin-top: 64px !important">
+          <thead>
+            <th colspan="3">{{workout.workoutName}}
+              <small><span *ngIf="workout.activities.length > 0">Last Activity: {{workout.activities[workout.activities.length - 1].timestamp}}</span></small>
+            </th>
+          </thead>
+          <thead>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Sets</th>
+            <th>Reps</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let exercise of (workout.exercises ? workout.exercises : [])">
+              <td>{{exercise.exerciseName}}</td>
+              <td>{{exercise.description}}</td>
+              <td>{{exercise.sets}}</td>
+              <td>{{exercise.reps}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+</div>

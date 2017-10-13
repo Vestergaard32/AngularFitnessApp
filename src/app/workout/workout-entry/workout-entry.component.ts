@@ -5,6 +5,7 @@ import { FitnessApiService } from '../../fitness-api.service'
 import { User } from '../../user'
 import { WorkoutProgram } from '../../workout-program'
 import { Exercise } from '../../exercise'
+import { LoginService } from '../../login/login.service'
 
 @Component({
   selector: 'app-workout-entry',
@@ -20,12 +21,16 @@ export class WorkoutEntryComponent implements OnInit {
   exerciseSets = new FormControl();
   exerciseReps = new FormControl();
 
-    constructor(private apiService : FitnessApiService) 
+    constructor(private apiService : FitnessApiService, private loginService : LoginService) 
     {
       this.apiService.loggedInUser.subscribe(user => this.refreshUser(user));
     }
   
     ngOnInit() {
+    }
+
+    isLoggedIn() {
+      return this.loginService.isLoggedIn();
     }
   
     refreshUser(user : User)

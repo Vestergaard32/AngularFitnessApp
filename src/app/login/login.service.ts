@@ -79,6 +79,11 @@ export class LoginService {
     return theObservable;
   }
 
+  public logout()
+  {
+    window.localStorage.removeItem(this.fitnessTokenKey);
+  }
+
   public isLoggedIn()
   {
     const token = this.getToken();
