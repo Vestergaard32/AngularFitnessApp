@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse, HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/share';
+
 import { User } from '../user'
 
 @Injectable()
@@ -11,7 +13,7 @@ export class LoginService {
   constructor(private http: HttpClient) 
   {
     this.fitnessTokenKey = "fitness-token";
-    this.baseUrl = "http://localhost:3000/api/"
+    this.baseUrl = "https://webassignment4.herokuapp.com/api/"
   }
 
   private saveToken(token: string)
@@ -36,7 +38,7 @@ export class LoginService {
     var theObservable = this.http.post(url, {
       "username": username,
       "password": password
-    });
+    }).share();
 
     theObservable.subscribe(data => {
       this.saveToken(data["token"]);
@@ -61,7 +63,7 @@ export class LoginService {
     var theObservable = this.http.post(url, {
       "username": username,
       "password": password
-    });
+    }).share();
 
     theObservable.subscribe(data => {
       this.saveToken(data["token"]);

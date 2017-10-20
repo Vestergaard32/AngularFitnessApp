@@ -12,8 +12,7 @@ import { LoginService } from './login/login.service'
 export class FitnessApiService {
   public loggedInUser : BehaviorSubject<User>;
 
-  //private baseUrl = 'https://hidden-lake-64342.herokuapp.com/';
-  private baseUrl = 'http://localhost:3000/'
+  private baseUrl = 'https://webassignment4.herokuapp.com/';
 
   constructor(private http: HttpClient, private loginService : LoginService)
   {
